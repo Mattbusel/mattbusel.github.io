@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matt Busel · I build apps that ship</title>
+<meta name="description" content="Matt Busel builds and ships iOS apps and AI software for clients. Fixed-price sprints, App Store launches, and LLM engineering. 17 iOS apps built, 7 live on the App Store.">
+<meta property="og:title" content="Matt Busel · I build apps that ship">
+<meta property="og:description" content="iOS apps, App Store launches and AI engineering. Fixed prices, senior work, you own the code.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mattbusel.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316140F'/%3E%3Cpath d='M16 44V20l16 14 16-14v24' fill='none' stroke='%23E0512B' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#F4F1EA; --paper2:#ECE7DC; --ink:#16140F; --ink2:#4A463D; --line:#D9D2C3;
+  --accent:#E0512B; --accent-ink:#fff; --card:#FBF9F4;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:ui-sans-serif,-apple-system,"Segoe UI Variable Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12110E; --paper2:#1A1814; --ink:#F1ECE2; --ink2:#B5AE9F; --line:#2E2A23; --card:#1B1915; --accent:#F0663F;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font:700 18px var(--serif);text-decoration:none;letter-spacing:-.01em}
+.brand b{color:var(--accent)}
+nav ul{display:flex;gap:26px;list-style:none;font-size:15px}
+nav ul a{text-decoration:none;color:var(--ink2)} nav ul a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:700;padding:13px 22px;border-radius:999px;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.sm{padding:8px 16px;font-size:14px}
+header.hero{padding:96px 0 72px}
+.kicker{font:600 13px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:600 clamp(44px,7vw,84px)/1.02 var(--serif);letter-spacing:-.025em;margin:18px 0 24px;max-width:15ch}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:21px;color:var(--ink2);max-width:40ch}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.proof{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:72px}
+.proof div{padding:26px 22px;border-right:1px solid var(--line)} .proof div:last-child{border-right:0}
+.proof strong{display:block;font:600 44px/1 var(--serif);letter-spacing:-.02em}
+.proof span{font-size:14px;color:var(--ink2)}
+section{padding:88px 0}
+h2{font:600 clamp(32px,4.5vw,50px)/1.08 var(--serif);letter-spacing:-.02em;margin:12px 0 18px;max-width:22ch}
+.sub{color:var(--ink2);max-width:60ch;font-size:18px}
+.apps{display:grid;grid-template-columns:repeat(8,1fr);gap:16px;margin-top:40px}
+.app{text-decoration:none;text-align:center;font-size:13px;color:var(--ink2)}
+.app img{width:100%;aspect-ratio:1;border-radius:22%;display:block;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);margin-bottom:8px;transition:transform .2s}
+.app:hover img{transform:translateY(-3px) rotate(-2deg)}
+.app i{display:block;font-style:normal;font-size:11px;font-family:var(--mono);color:var(--accent)}
+.pipeline{margin-top:36px;display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+.panel h3{font:600 22px var(--serif);margin-bottom:8px}
+.panel p,.panel li{color:var(--ink2);font-size:16px}
+.panel ul{padding-left:18px;margin-top:8px} .panel li{margin:4px 0}
+code{font:14px var(--mono);background:var(--paper2);padding:2px 6px;border-radius:6px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 26px;display:flex;flex-direction:column}
+.tier.feat{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tier.feat p,.tier.feat li{color:color-mix(in srgb,var(--paper) 78%,transparent)}
+.tier .name{font:600 13px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.tier .price{font:600 46px/1 var(--serif);letter-spacing:-.02em;margin:16px 0 4px}
+.tier .price small{font:500 15px var(--sans);opacity:.7;letter-spacing:0}
+.tier .time{font-size:14px;opacity:.75;margin-bottom:16px}
+.tier p{color:var(--ink2);font-size:16px}
+.tier ul{list-style:none;margin:18px 0 26px;flex:1}
+.tier li{padding:7px 0 7px 26px;position:relative;font-size:15px;color:var(--ink2);border-top:1px solid color-mix(in srgb,currentColor 12%,transparent)}
+.tier li::before{content:"";position:absolute;left:2px;top:14px;width:12px;height:7px;border-left:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg)}
+.rate{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;background:var(--paper2);border-radius:16px;padding:22px 26px}
+.rate strong{font:600 26px var(--serif)}
+.rate p{color:var(--ink2);font-size:15px;max-width:62ch}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;counter-reset:s}
+.step{padding:0 22px 0 0;border-top:2px solid var(--ink);padding-top:18px}
+.step::before{counter-increment:s;content:"0" counter(s);font:600 13px var(--mono);color:var(--accent)}
+.step h3{font:600 20px var(--serif);margin:6px 0}
+.step p{font-size:15px;color:var(--ink2)}
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.work a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:border-color .2s}
+.work a:hover{border-color:var(--accent)}
+.work h3{font:600 19px var(--serif);margin-bottom:6px}
+.work p{font-size:15px;color:var(--ink2)}
+.work .tag{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block}
+details{border-top:1px solid var(--line);padding:20px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{font:600 20px var(--serif);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px}
+summary::after{content:"+";font-family:var(--sans);color:var(--accent);font-weight:400;font-size:26px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--ink2);margin-top:10px;max-width:70ch}
+.contact{background:var(--ink);color:var(--paper);border-radius:28px;padding:64px 56px;margin:40px 0 96px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.contact h2{color:var(--paper);margin-top:0}
+.contact p{color:color-mix(in srgb,var(--paper) 75%,transparent)}
+.contact .links{display:flex;flex-direction:column;gap:12px}
+.contact .links a{display:flex;justify-content:space-between;align-items:center;text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--paper) 20%,transparent);padding:10px 0;font-weight:600}
+.contact .links a span{font:13px var(--mono);opacity:.6;font-weight:400}
+.contact .btn{margin-top:24px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:14px;color:var(--ink2)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:860px){
+  nav ul{display:none}
+  .proof{grid-template-columns:repeat(2,1fr)} .proof div:nth-child(2){border-right:0} .proof div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .apps{grid-template-columns:repeat(4,1fr)}
+  .pipeline,.tiers,.work,.contact{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:28px 0}
+  .contact{padding:40px 26px}
+  header.hero{padding:64px 0 48px}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#top">Matt Busel<b>.</b></a>
+  <ul><li><a href="#work">Work</a></li><li><a href="#services">Services</a></li><li><a href="#process">Process</a></li><li><a href="#faq">FAQ</a></li></ul>
+  <a class="btn sm" href="#contact">Start a project</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="kicker">Available for new builds · New York</div>
+  <h1>I build apps that <em>actually ship.</em></h1>
+  <p class="lede">iOS apps, App Store launches and AI software, built by one senior engineer who has taken 17 apps from idea to App Store submission. Fixed prices. You own every line.</p>
+  <div class="cta">
+    <a class="btn" href="#contact">Tell me what you want built →</a>
+    <a class="btn ghost" href="#services">See pricing</a>
+  </div>
+  <div class="proof">
+    <div><strong>17</strong><span>iOS apps built and submitted</span></div>
+    <div><strong>7</strong><span>live on the App Store now</span></div>
+    <div><strong>120+</strong><span>public repositories</span></div>
+    <div><strong>480</strong><span>GitHub stars on my open source</span></div>
+  </div>
+</div></header>
+
+<section id="work" style="padding-top:24px"><div class="wrap">
+  <div class="kicker">Proof, not promises</div>
+  <h2>Apps I designed, built and shipped myself.</h2>
+  <p class="sub">Every one of these is native SwiftUI with its own design, built end to end: product, code, icon, screenshots, store listing and review. Tap one to see it on the App Store or its source.</p>
+  <div class="apps">
+    <a class="app" href="https://apps.apple.com/app/id6814264554"><img src="img/chain.jpg" alt="Chain app icon" loading="lazy">Chain<i>LIVE</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6814264434"><img src="img/ironbook.jpg" alt="Ironbook app icon" loading="lazy">Ironbook<i>LIVE</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6814263466"><img src="img/quiver.jpg" alt="Quiver app icon" loading="lazy">Quiver<i>LIVE</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6813452278"><img src="img/baseline-ledger.jpg" alt="Baseline Ledger app icon" loading="lazy">Baseline<i>LIVE</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6813452174"><img src="img/fairway-ledger.jpg" alt="Fairway Ledger app icon" loading="lazy">Fairway<i>LIVE</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6812787188"><img src="img/pocket-beings.jpg" alt="Pocket Beings app icon" loading="lazy">Pocket Beings<i>LIVE</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6810644510"><img src="img/clear-the-strait.jpg" alt="Clear the Strait app icon" loading="lazy">Clear the Strait<i>LIVE</i></a>
+    <a class="app" href="https://github.com/Mattbusel/rooms"><img src="img/rooms.jpg" alt="Rooms app icon" loading="lazy">Rooms<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/odometer"><img src="img/odometer.jpg" alt="Odometer app icon" loading="lazy">Odometer<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/clockout"><img src="img/clockout.jpg" alt="Clockout app icon" loading="lazy">Clockout<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/curve"><img src="img/curve.jpg" alt="Curve app icon" loading="lazy">Curve<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/pricebook"><img src="img/pricebook.jpg" alt="Pricebook app icon" loading="lazy">Pricebook<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/pawprint"><img src="img/pawprint.jpg" alt="Pawprint app icon" loading="lazy">Pawprint<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/chores"><img src="img/chores.jpg" alt="Chores app icon" loading="lazy">Chores<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/minder"><img src="img/minder.jpg" alt="Minder app icon" loading="lazy">Minder<i>IN REVIEW</i></a>
+    <a class="app" href="https://github.com/Mattbusel/race-fuel"><img src="img/race-fuel.jpg" alt="Race Fuel app icon" loading="lazy">Race Fuel<i>BUILT</i></a>
+  </div>
+
+  <div class="pipeline">
+    <div class="panel">
+      <h3>A release pipeline most teams would envy</h3>
+      <p>My apps are built, signed, screenshotted and submitted to Apple entirely by automation: GitHub Actions macOS runners, XcodeGen, fastlane and a set of scripts that drive the App Store Connect API. Pricing, listings, in-app purchases and review notes are all code. Your project gets the same pipeline, so every release after launch is one command, not a lost afternoon.</p>
+    </div>
+    <div class="panel">
+      <h3>Beyond iOS</h3>
+      <ul>
+        <li>AI and LLM engineering in Rust, C++ and Python: orchestration, streaming, cost control, evaluation</li>
+        <li>A family of 26 single-header C++ LLM libraries</li>
+        <li>Offline web apps and tools, 120+ shipped on Gumroad</li>
+        <li>Quant and market-data code in Rust and C++</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="services" style="background:var(--paper2)"><div class="wrap">
+  <div class="kicker">Services and pricing</div>
+  <h2>Senior work, priced like it.</h2>
+  <p class="sub">I work with a small number of clients at a time and price for outcomes, not hours. Every engagement is fixed scope and fixed price, agreed in writing before any work starts.</p>
+  <div class="tiers">
+    <div class="tier">
+      <div class="name">Prototype sprint</div>
+      <div class="price">$9,500</div>
+      <div class="time">2 weeks · fixed price</div>
+      <p>Your idea, running on your phone. The fastest way to find out if it is worth building.</p>
+      <ul>
+        <li>Working iOS app on TestFlight</li>
+        <li>Your core flow, fully designed</li>
+        <li>Clickable on your own device in 14 days</li>
+        <li>Source code and repo handed over</li>
+        <li>Credited in full toward a Launch</li>
+      </ul>
+      <a class="btn ghost" href="#contact">Book a sprint</a>
+    </div>
+    <div class="tier feat">
+      <div class="name">App Store launch</div>
+      <div class="price">$28,000<small> from</small></div>
+      <div class="time">6 to 8 weeks · fixed price</div>
+      <p>A complete, polished native app, live on the App Store under your name.</p>
+      <ul>
+        <li>Custom design, not a template</li>
+        <li>SwiftUI app, your data model, your brand</li>
+        <li>In-app purchases or subscriptions if you want them</li>
+        <li>Icon, screenshots, listing and App Review handled</li>
+        <li>Automated release pipeline you keep</li>
+        <li>30 days of fixes after launch</li>
+      </ul>
+      <a class="btn" href="#contact">Plan a launch</a>
+    </div>
+    <div class="tier">
+      <div class="name">AI build</div>
+      <div class="price">$18,000<small> from</small></div>
+      <div class="time">3 to 6 weeks · fixed price</div>
+      <p>AI features that work in production: grounded, measured and affordable to run.</p>
+      <ul>
+        <li>LLM features in your app or backend</li>
+        <li>Agents, retrieval and tool use</li>
+        <li>Cost limits, retries and evaluation built in</li>
+        <li>Rust, C++, Python or Swift</li>
+        <li>Documented, tested, handed over</li>
+      </ul>
+      <a class="btn ghost" href="#contact">Discuss an AI build</a>
+    </div>
+  </div>
+  <div class="rate">
+    <div><strong>$225 / hour</strong> for advisory, code review and small changes. Monthly retainers from $9,000.</div>
+    <p>50% deposit to start, 50% on delivery. Projects start within two weeks of signing.</p>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <div class="kicker">How it works</div>
+  <h2>No surprises, from first email to launch.</h2>
+  <div class="steps">
+    <div class="step"><h3>Brief</h3><p>You tell me what you want built. I reply within one business day with questions.</p></div>
+    <div class="step"><h3>Fixed quote</h3><p>A written scope, price and date. If the scope changes, we agree the change first.</p></div>
+    <div class="step"><h3>Weekly builds</h3><p>A new build on your phone every week. You see real progress, not status reports.</p></div>
+    <div class="step"><h3>Launch</h3><p>I ship it, handle App Review, and hand you the code, accounts and pipeline.</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="kicker">Open source</div>
+  <h2>Read my code before you hire me.</h2>
+  <div class="work">
+    <a href="https://github.com/Mattbusel/tokio-prompt-orchestrator"><span class="tag">Rust</span><h3>tokio-prompt-orchestrator</h3><p>Multi-core, Tokio-native orchestration for LLM pipelines.</p></a>
+    <a href="https://github.com/Mattbusel/llm-cpp"><span class="tag">C++</span><h3>llm-cpp</h3><p>26 single-header C++ libraries for building with LLMs.</p></a>
+    <a href="https://github.com/Mattbusel/rust-crates"><span class="tag">Rust</span><h3>rust-crates</h3><p>My Rust libraries for AI agents and market data.</p></a>
+    <a href="https://github.com/Mattbusel/Every-Other-Token"><span class="tag">Rust</span><h3>Every-Other-Token</h3><p>Real-time LLM stream interception at the token level.</p></a>
+    <a href="https://github.com/Mattbusel/proof-engine"><span class="tag">Rust</span><h3>proof-engine</h3><p>A mathematical rendering engine for real-time visuals.</p></a>
+    <a href="https://github.com/Mattbusel"><span class="tag">GitHub</span><h3>Everything else</h3><p>120+ public repositories across Swift, Rust, C++ and Python.</p></a>
+  </div>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+  <div class="kicker">Questions</div>
+  <h2>Why hire me instead of someone cheaper?</h2>
+  <details open><summary>Why do you cost more than the average freelancer?</summary><p>Because you are paying for a shipped product, not hours. Most freelance app projects stall between "it runs" and "it is on the App Store". I do the whole path, design through App Review, and I have done it seventeen times. A cheaper build that never launches is the most expensive option there is.</p></details>
+  <details><summary>Who owns the code?</summary><p>You do. The repository, the design files, the App Store listing and the release pipeline are yours at handover.</p></details>
+  <details><summary>Do you work with agencies or other developers?</summary><p>Yes. I can build a feature, rescue a stuck release, set up automated App Store delivery for your team, or review an existing codebase at the hourly rate.</p></details>
+  <details><summary>What do you not do?</summary><p>Games with heavy 3D art, Android-only apps, and anything I cannot ship to a standard I would put my name on. If it is not a fit, I will say so on the first email and point you somewhere better.</p></details>
+  <details><summary>How fast can you start?</summary><p>Usually within two weeks of a signed scope. Prototype sprints can often start sooner.</p></details>
+</div></section>
+
+<div class="wrap" id="contact">
+  <div class="contact">
+    <div>
+      <div class="kicker">Start a project</div>
+      <h2>Tell me what you want built.</h2>
+      <p>A few lines is enough: what the app does, who it is for, and when you need it. I reply within one business day with questions and a rough price range.</p>
+      <a class="btn" href="mailto:mattbusel@gmail.com?subject=Project%20inquiry&amp;body=What%20I%20want%20built%3A%0A%0AWho%20it%20is%20for%3A%0A%0AWhen%20I%20need%20it%3A%0A%0ABudget%20range%3A%0A">Email me a brief →</a>
+    </div>
+    <div class="links">
+      <a href="mailto:mattbusel@gmail.com">Email <span>mattbusel@gmail.com</span></a>
+      <a href="https://www.linkedin.com/in/matthewbusel/">LinkedIn <span>in/matthewbusel</span></a>
+      <a href="https://github.com/Mattbusel">GitHub <span>@Mattbusel</span></a>
+      <a href="https://apps.apple.com/app/id6814264554">App Store <span>7 live apps</span></a>
+      <a href="https://mattitude8861.gumroad.com">Gumroad <span>120+ tools</span></a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <span>© 2026 Matt Busel · New York</span>
+  <span>Built by hand. No trackers on this page.</span>
+</div></footer>
+</body>
+</html>
