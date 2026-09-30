@@ -1,7 +1,7 @@
-# mattbusel.github.io
+# mattbusel.vercel.app
 
-Source for [mattbusel.github.io](https://mattbusel.github.io/): Matt Busel's services page. I build and ship iOS apps and AI software for clients, with fixed-price sprints, App Store launches and LLM engineering.
+Source for [mattbusel.vercel.app](https://mattbusel.vercel.app/): Matt Busel's services page. I build and ship iOS apps and AI software for clients, with fixed-price sprints, App Store launches and LLM engineering.
 
-One static `index.html`, no build step, no trackers. Served by GitHub Pages from `main`.
+One static `index.html`, no build step, no trackers. Served by Vercel.
 
 Start a project: [mattbusel@gmail.com](mailto:mattbusel@gmail.com) · [LinkedIn](https://www.linkedin.com/in/matthewbusel/)
