@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matt Busel · 自由职业开发者｜iOS 应用外包开发、AI 应用开发、Rust 开发</title>
+<meta name="description" content="Matt Busel 是为企业承接外包开发的自由职业开发者：iOS 应用与 AI 应用开发，提供固定价格冲刺、App Store 上架和大模型（LLM）工程（Rust、C++、Python）。已开发 17 款 iOS 应用，其中 7 款已在 App Store 上架。">
+<meta property="og:title" content="Matt Busel · 自由职业开发者，只做真正能上线的应用">
+<meta property="og:description" content="iOS 应用开发、App Store 上架与 AI 工程外包。固定价格，资深工程师亲自交付，代码完全归您所有。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mattbusel.vercel.app/zh/">
+<link rel="canonical" href="https://mattbusel.vercel.app/zh/">
+<meta name="twitter:card" content="summary">
+<meta name="author" content="Matthew Busel">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Matthew Busel","url":"https://mattbusel.vercel.app/","email":"mailto:mattbusel@gmail.com","jobTitle":"Software engineer","sameAs":["https://gitlab.com/mattbusel","https://www.linkedin.com/in/matthewbusel/","https://crates.io/users/Mattbusel"],"knowsAbout":["Rust","iOS","SwiftUI","LLM engineering","C++"]}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316140F'/%3E%3Cpath d='M16 44V20l16 14 16-14v24' fill='none' stroke='%23E0512B' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#F4F1EA; --paper2:#ECE7DC; --ink:#16140F; --ink2:#4A463D; --line:#D9D2C3;
+  --accent:#E0512B; --accent-ink:#fff; --card:#FBF9F4;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:ui-sans-serif,-apple-system,"Segoe UI Variable Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12110E; --paper2:#1A1814; --ink:#F1ECE2; --ink2:#B5AE9F; --line:#2E2A23; --card:#1B1915; --accent:#F0663F;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font:700 18px var(--serif);text-decoration:none;letter-spacing:-.01em}
+.brand b{color:var(--accent)}
+nav ul{display:flex;gap:26px;list-style:none;font-size:15px}
+nav ul a{text-decoration:none;color:var(--ink2)} nav ul a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:700;padding:13px 22px;border-radius:999px;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.sm{padding:8px 16px;font-size:14px}
+header.hero{padding:96px 0 72px}
+.kicker{font:600 13px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:600 clamp(44px,7vw,84px)/1.02 var(--serif);letter-spacing:-.025em;margin:18px 0 24px;max-width:15ch}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:21px;color:var(--ink2);max-width:40ch}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.proof{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:72px}
+.proof div{padding:26px 22px;border-right:1px solid var(--line)} .proof div:last-child{border-right:0}
+.proof strong{display:block;font:600 44px/1 var(--serif);letter-spacing:-.02em}
+.proof span{font-size:14px;color:var(--ink2)}
+section{padding:88px 0}
+h2{font:600 clamp(32px,4.5vw,50px)/1.08 var(--serif);letter-spacing:-.02em;margin:12px 0 18px;max-width:22ch}
+.sub{color:var(--ink2);max-width:60ch;font-size:18px}
+.apps{display:grid;grid-template-columns:repeat(8,1fr);gap:16px;margin-top:40px}
+.app{text-decoration:none;text-align:center;font-size:13px;color:var(--ink2)}
+.app img{width:100%;aspect-ratio:1;border-radius:22%;display:block;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);margin-bottom:8px;transition:transform .2s}
+.app:hover img{transform:translateY(-3px) rotate(-2deg)}
+.app i{display:block;font-style:normal;font-size:11px;font-family:var(--mono);color:var(--accent)}
+.pipeline{margin-top:36px;display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+.panel h3{font:600 22px var(--serif);margin-bottom:8px}
+.panel p,.panel li{color:var(--ink2);font-size:16px}
+.panel ul{padding-left:18px;margin-top:8px} .panel li{margin:4px 0}
+code{font:14px var(--mono);background:var(--paper2);padding:2px 6px;border-radius:6px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 26px;display:flex;flex-direction:column}
+.tier.feat{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tier.feat p,.tier.feat li{color:color-mix(in srgb,var(--paper) 78%,transparent)}
+.tier .name{font:600 13px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.tier .price{font:600 46px/1 var(--serif);letter-spacing:-.02em;margin:16px 0 4px}
+.tier .price small{font:500 15px var(--sans);opacity:.7;letter-spacing:0}
+.tier .time{font-size:14px;opacity:.75;margin-bottom:16px}
+.tier p{color:var(--ink2);font-size:16px}
+.tier ul{list-style:none;margin:18px 0 26px;flex:1}
+.tier li{padding:7px 0 7px 26px;position:relative;font-size:15px;color:var(--ink2);border-top:1px solid color-mix(in srgb,currentColor 12%,transparent)}
+.tier li::before{content:"";position:absolute;left:2px;top:14px;width:12px;height:7px;border-left:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg)}
+.rate{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;background:var(--paper2);border-radius:16px;padding:22px 26px}
+.rate strong{font:600 26px var(--serif)}
+.rate p{color:var(--ink2);font-size:15px;max-width:62ch}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;counter-reset:s}
+.step{padding:0 22px 0 0;border-top:2px solid var(--ink);padding-top:18px}
+.step::before{counter-increment:s;content:"0" counter(s);font:600 13px var(--mono);color:var(--accent)}
+.step h3{font:600 20px var(--serif);margin:6px 0}
+.step p{font-size:15px;color:var(--ink2)}
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.work a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:border-color .2s}
+.work a:hover{border-color:var(--accent)}
+.work h3{font:600 19px var(--serif);margin-bottom:6px}
+.work p{font-size:15px;color:var(--ink2)}
+.work .tag{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block}
+details{border-top:1px solid var(--line);padding:20px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{font:600 20px var(--serif);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px}
+summary::after{content:"+";font-family:var(--sans);color:var(--accent);font-weight:400;font-size:26px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--ink2);margin-top:10px;max-width:70ch}
+.contact{background:var(--ink);color:var(--paper);border-radius:28px;padding:64px 56px;margin:40px 0 96px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.contact h2{color:var(--paper);margin-top:0}
+.contact p{color:color-mix(in srgb,var(--paper) 75%,transparent)}
+.contact .links{display:flex;flex-direction:column;gap:12px}
+.contact .links a{display:flex;justify-content:space-between;align-items:center;text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--paper) 20%,transparent);padding:10px 0;font-weight:600}
+.contact .links a span{font:13px var(--mono);opacity:.6;font-weight:400}
+.contact .btn{margin-top:24px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:14px;color:var(--ink2)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:860px){
+  nav ul{display:none}
+  .proof{grid-template-columns:repeat(2,1fr)} .proof div:nth-child(2){border-right:0} .proof div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .apps{grid-template-columns:repeat(4,1fr)}
+  .pipeline,.tiers,.work,.contact{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:28px 0}
+  .contact{padding:40px 26px}
+  header.hero{padding:64px 0 48px}
+}
+</style>
+<!-- i18n -->
+<link rel="alternate" hreflang="en" href="https://mattbusel.vercel.app/">
+<link rel="alternate" hreflang="zh-CN" href="https://mattbusel.vercel.app/zh/">
+<link rel="alternate" hreflang="ja" href="https://mattbusel.vercel.app/ja/">
+<link rel="alternate" hreflang="ko" href="https://mattbusel.vercel.app/ko/">
+<link rel="alternate" hreflang="x-default" href="https://mattbusel.vercel.app/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="ko_KR">
+<style>.i18n-switch{display:block!important;position:relative;z-index:40;box-sizing:border-box;max-width:1200px;margin:0 auto!important;padding:6px 16px 0!important;border:0!important;background:none!important;text-align:right!important;font:13px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif!important;letter-spacing:normal!important;text-transform:none!important;opacity:.8}.i18n-switch a,.i18n-switch span{display:inline!important;margin:0!important;padding:0!important;font:inherit!important;color:inherit!important;background:none!important;border:0!important}.i18n-switch a{text-decoration:underline!important;text-underline-offset:2px}.i18n-switch [aria-current]{font-weight:600!important}</style>
+<!-- /i18n -->
+</head>
+<body>
+<div class="i18n-switch" role="navigation" aria-label="语言"><a href="../" hreflang="en" lang="en">English</a> | <span aria-current="true">简体中文</span> | <a href="../ja/" hreflang="ja" lang="ja">日本語</a> | <a href="../ko/" hreflang="ko" lang="ko">한국어</a></div>
+<nav><div class="wrap">
+  <a class="brand" href="#top">Matt Busel<b>.</b></a>
+  <ul><li><a href="#work">作品</a></li><li><a href="#services">服务</a></li><li><a href="#process">流程</a></li><li><a href="#faq">常见问题</a></li></ul>
+  <a class="btn sm" href="#contact">洽谈项目</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="kicker">现可承接新项目 · 纽约</div>
+  <h1>我做的应用，<br><em>真正能上线。</em></h1>
+  <p class="lede">iOS 应用、App Store 上架与 AI 软件，由一位资深工程师亲自完成。我已将 17 款应用从构想一路做到提交 App Store。固定价格，每一行代码都归您所有。</p>
+  <div class="cta">
+    <a class="btn" href="#contact">告诉我您想做什么 →</a>
+    <a class="btn ghost" href="#services">查看报价</a>
+  </div>
+  <div class="proof">
+    <div><strong>17</strong><span>款 iOS 应用已开发并提交</span></div>
+    <div><strong>7</strong><span>款目前已在 App Store 上架</span></div>
+    <div><strong>120+</strong><span>个公开代码仓库</span></div>
+    <div><strong>480</strong><span>个开源项目 GitHub Star</span></div>
+  </div>
+</div></header>
+
+<section id="work" style="padding-top:24px"><div class="wrap">
+  <div class="kicker">用作品说话，而非承诺</div>
+  <h2>由我亲自设计、开发并上线的应用。</h2>
+  <p class="sub">每一款都是拥有独立设计的原生 SwiftUI 应用，由我端到端完成：产品、代码、图标、截图、商店页面与审核。点击即可查看其 App Store 页面或源代码。</p>
+  <div class="apps">
+    <a class="app" href="https://apps.apple.com/app/id6814264554"><img src="../img/chain.jpg" alt="Chain 应用图标" loading="lazy">Chain<i>已上架</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6814264434"><img src="../img/ironbook.jpg" alt="Ironbook 应用图标" loading="lazy">Ironbook<i>已上架</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6814263466"><img src="../img/quiver.jpg" alt="Quiver 应用图标" loading="lazy">Quiver<i>已上架</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6813452278"><img src="../img/baseline-ledger.jpg" alt="Baseline Ledger 应用图标" loading="lazy">Baseline<i>已上架</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6813452174"><img src="../img/fairway-ledger.jpg" alt="Fairway Ledger 应用图标" loading="lazy">Fairway<i>已上架</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6812787188"><img src="../img/pocket-beings.jpg" alt="Pocket Beings 应用图标" loading="lazy">Pocket Beings<i>已上架</i></a>
+    <a class="app" href="https://apps.apple.com/app/id6810644510"><img src="../img/clear-the-strait.jpg" alt="Clear the Strait 应用图标" loading="lazy">Clear the Strait<i>已上架</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/rooms"><img src="../img/rooms.jpg" alt="Rooms 应用图标" loading="lazy">Rooms<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/odometer"><img src="../img/odometer.jpg" alt="Odometer 应用图标" loading="lazy">Odometer<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/clockout"><img src="../img/clockout.jpg" alt="Clockout 应用图标" loading="lazy">Clockout<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/curve"><img src="../img/curve.jpg" alt="Curve 应用图标" loading="lazy">Curve<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/pricebook"><img src="../img/pricebook.jpg" alt="Pricebook 应用图标" loading="lazy">Pricebook<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/pawprint"><img src="../img/pawprint.jpg" alt="Pawprint 应用图标" loading="lazy">Pawprint<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/chores"><img src="../img/chores.jpg" alt="Chores 应用图标" loading="lazy">Chores<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/minder"><img src="../img/minder.jpg" alt="Minder 应用图标" loading="lazy">Minder<i>审核中</i></a>
+    <a class="app" href="https://gitlab.com/mattbusel/race-fuel"><img src="../img/race-fuel.jpg" alt="Race Fuel 应用图标" loading="lazy">Race Fuel<i>已完成开发</i></a>
+  </div>
+
+  <div class="pipeline">
+    <div class="panel">
+      <h3>一条多数团队都会羡慕的发布流水线</h3>
+      <p>我的应用从构建、签名、截图到提交 Apple，全部由自动化完成：GitHub Actions macOS 运行器、XcodeGen、fastlane，以及一套调用 App Store Connect API 的脚本。定价、商店页面、App 内购买和审核备注全部以代码管理。您的项目将获得同一套流水线，上线后的每次发布只需一条命令，不必再耗掉一个下午。</p>
+    </div>
+    <div class="panel">
+      <h3>iOS 之外</h3>
+      <ul>
+        <li>使用 Rust、C++ 和 Python 的 AI 与大模型（LLM）工程：编排、流式输出、成本控制、评估</li>
+        <li>由 26 个单头文件 C++ LLM 库组成的系列</li>
+        <li>离线 Web 应用与工具，已在 Gumroad 发布 120+ 款</li>
+        <li>使用 Rust 和 C++ 编写的量化与市场数据代码</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="services" style="background:var(--paper2)"><div class="wrap">
+  <div class="kicker">服务与报价</div>
+  <h2>资深水准，相应定价。</h2>
+  <p class="sub">我同一时间只服务少量客户，按成果而非工时定价。每个项目都采用固定范围、固定价格，并在开工前以书面形式确认。</p>
+  <div class="tiers">
+    <div class="tier">
+      <div class="name">原型冲刺</div>
+      <div class="price">$9,500</div>
+      <div class="time">2 周 · 固定价格</div>
+      <p>让您的想法在手机上跑起来。这是判断它是否值得开发的最快方式。</p>
+      <ul>
+        <li>可在 TestFlight 上运行的 iOS 应用</li>
+        <li>核心流程完整设计</li>
+        <li>14 天内即可在您自己的设备上点击体验</li>
+        <li>移交源代码与代码仓库</li>
+        <li>费用可全额抵扣 App Store 上架项目</li>
+      </ul>
+      <a class="btn ghost" href="#contact">预约冲刺</a>
+    </div>
+    <div class="tier feat">
+      <div class="name">App Store 上架</div>
+      <div class="price">$28,000<small> 起</small></div>
+      <div class="time">6 到 8 周 · 固定价格</div>
+      <p>一款完整、精致的原生应用，以您的名义在 App Store 上架。</p>
+      <ul>
+        <li>定制设计，而非套用模板</li>
+        <li>SwiftUI 应用，采用您的数据模型与品牌</li>
+        <li>如有需要，可加入 App 内购买或订阅</li>
+        <li>图标、截图、商店页面与 App 审核全部由我处理</li>
+        <li>自动化发布流水线，交付后归您所有</li>
+        <li>上线后 30 天的问题修复</li>
+      </ul>
+      <a class="btn" href="#contact">规划上架</a>
+    </div>
+    <div class="tier">
+      <div class="name">AI 应用开发</div>
+      <div class="price">$18,000<small> 起</small></div>
+      <div class="time">3 到 6 周 · 固定价格</div>
+      <p>能在生产环境中可靠运行的 AI 功能：有据可依、效果可衡量、运行成本可控。</p>
+      <ul>
+        <li>在您的应用或后端中实现 LLM 功能</li>
+        <li>智能体（Agent）、检索与工具调用</li>
+        <li>内置成本上限、重试与评估</li>
+        <li>Rust、C++、Python 或 Swift</li>
+        <li>附带文档与测试，完整移交</li>
+      </ul>
+      <a class="btn ghost" href="#contact">洽谈 AI 项目</a>
+    </div>
+  </div>
+  <div class="rate">
+    <div><strong>$225 / 小时</strong>，适用于技术咨询、代码审查和小型修改。月度长期合作 $9,000 起。</div>
+    <p>开工前支付 50% 定金，交付时支付剩余 50%。签约后两周内启动项目。</p>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <div class="kicker">合作流程</div>
+  <h2>从第一封邮件到上线，全程没有意外。</h2>
+  <div class="steps">
+    <div class="step"><h3>需求简介</h3><p>您告诉我想做什么，我会在一个工作日内回复并提出问题。</p></div>
+    <div class="step"><h3>固定报价</h3><p>书面确认范围、价格与交付日期。如需变更范围，我们先就变更达成一致。</p></div>
+    <div class="step"><h3>每周构建</h3><p>每周都有新版本装到您的手机上。您看到的是真实进展，而不是状态报告。</p></div>
+    <div class="step"><h3>上线</h3><p>由我发布上线、处理 App 审核，并将代码、账号和流水线移交给您。</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="kicker">开源</div>
+  <h2>聘用我之前，先看看我的代码。</h2>
+  <div class="work">
+    <a href="https://gitlab.com/mattbusel/tokio-prompt-orchestrator"><span class="tag">Rust</span><h3>tokio-prompt-orchestrator</h3><p>多核、Tokio 原生的 LLM 流水线编排框架。</p></a>
+    <a href="https://gitlab.com/mattbusel/llm-cpp"><span class="tag">C++</span><h3>llm-cpp</h3><p>26 个用于 LLM 开发的单头文件 C++ 库。</p></a>
+    <a href="https://gitlab.com/mattbusel/rust-crates"><span class="tag">Rust</span><h3>rust-crates</h3><p>我为 AI 智能体和市场数据编写的 Rust 库。</p></a>
+    <a href="https://gitlab.com/mattbusel/Every-Other-Token"><span class="tag">Rust</span><h3>Every-Other-Token</h3><p>在 Token 级别实时拦截 LLM 流式输出。</p></a>
+    <a href="https://gitlab.com/mattbusel/proof-engine"><span class="tag">Rust</span><h3>proof-engine</h3><p>用于实时视觉效果的数学渲染引擎。</p></a>
+    <a href="https://gitlab.com/mattbusel"><span class="tag">GitLab</span><h3>其他全部项目</h3><p>100+ 个公开仓库，涵盖 Swift、Rust、C++ 和 Python。</p></a>
+  </div>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+  <div class="kicker">常见问题</div>
+  <h2>为什么选择我，而不是更便宜的开发者？</h2>
+  <details open><summary>为什么您的报价高于一般自由职业者？</summary><p>因为您购买的是一个已上线的产品，而不是工时。多数外包应用项目都卡在“能运行”和“已上架 App Store”之间。我负责从设计到 App 审核的完整流程，并且已经完成过十七次。一个更便宜却始终无法上线的项目，才是代价最高的选择。</p></details>
+  <details><summary>代码归谁所有？</summary><p>归您所有。交付时，代码仓库、设计文件、App Store 商店页面和发布流水线全部归您。</p></details>
+  <details><summary>您与外包公司或其他开发者合作吗？</summary><p>合作。我可以按小时费率为您开发某项功能、挽救卡住的发布、为您的团队搭建自动化 App Store 交付流程，或审查现有代码库。</p></details>
+  <details><summary>哪些项目您不接？</summary><p>重度 3D 美术的游戏、仅限 Android 的应用，以及任何我无法做到愿意署名标准的项目。如果不合适，我会在第一封邮件中直接说明，并为您推荐更合适的去处。</p></details>
+  <details><summary>最快多久能开始？</summary><p>通常在范围签署后两周内。原型冲刺往往可以更早开始。</p></details>
+</div></section>
+
+<div class="wrap" id="contact">
+  <div class="contact">
+    <div>
+      <div class="kicker">洽谈项目</div>
+      <h2>告诉我您想做什么。</h2>
+      <p>几行文字就足够：应用做什么、面向谁、何时需要。我会在一个工作日内回复，提出问题并给出大致报价区间。</p>
+      <a class="btn" href="mailto:mattbusel@gmail.com?subject=Project%20inquiry&amp;body=What%20I%20want%20built%3A%0A%0AWho%20it%20is%20for%3A%0A%0AWhen%20I%20need%20it%3A%0A%0ABudget%20range%3A%0A">通过邮件发送需求 →</a>
+    </div>
+    <div class="links">
+      <a href="mailto:mattbusel@gmail.com">邮箱 <span>mattbusel@gmail.com</span></a>
+      <a href="https://www.linkedin.com/in/matthewbusel/">LinkedIn <span>in/matthewbusel</span></a>
+      <a href="https://gitlab.com/mattbusel">GitLab <span>@mattbusel</span></a>
+      <a href="https://apps.apple.com/app/id6814264554">App Store <span>7 款已上架应用</span></a>
+      <a href="https://mattitude8861.gumroad.com">Gumroad <span>120+ 款工具</span></a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <span>© 2026 Matt Busel · 纽约</span>
+  <span>纯手工打造。本页面不含任何追踪器。</span>
+</div></footer>
+</body>
+</html>
