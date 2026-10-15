@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mattbusel.vercel.app/sitemap.xml
+Sitemap: https://tensorust.com/sitemap.xml
