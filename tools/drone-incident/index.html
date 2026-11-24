@@ -1,0 +1,219 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drone Incident Analyzer — free Remote ID verdict · Tensorust</title>
+<meta name="description" content="Upload a captured Remote ID file (pcap, pcapng or RIDF) and get a free field verdict from the open-source Tensorust stack: flooded or clear, how many tracks look fake, and whether one real drone is hiding in the noise. Full incident report $9.99.">
+<link rel="canonical" href="https://tensorust.com/tools/drone-incident/">
+<meta property="og:type" content="website"><meta property="og:url" content="https://tensorust.com/tools/drone-incident/">
+<meta property="og:title" content="Drone Incident Analyzer · Tensorust">
+<meta property="og:description" content="Free Remote ID field verdict on your own capture. The real open-source decoder and analyzer, not a mockup.">
+<meta name="theme-color" content="#0a0e14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0e14'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%234cc2ff' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23ff5c7a'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0a0e14;--panel:#111823;--panel2:#0d141d;--line:#1e2a3a;--ink:#e6edf3;--muted:#8b9bb0;--dim:#5a6b80;
+--drone:#4cc2ff;--bad:#ff5c7a;--warn:#ffd24c;--ok:#39d98a;--mono:ui-monospace,'Cascadia Code','Consolas',monospace;--sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,rgba(76,194,255,.08),transparent 60%),var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+header.top{padding:20px 0;border-bottom:1px solid var(--line)}
+header.top .in{max-width:980px;margin:0 auto;padding:0 22px;display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
+.logo{font-family:var(--mono);font-weight:700;color:var(--ink);text-decoration:none;font-size:15px;letter-spacing:.04em}
+.logo b{color:var(--drone)}
+nav.tabs{display:flex;gap:14px;flex-wrap:wrap}
+nav.tabs a{color:var(--muted);text-decoration:none;font-size:13.5px}
+nav.tabs a:hover{color:var(--ink)}
+.sp{flex:1}
+header.hero{padding:56px 0 26px}
+.kick{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--drone);margin:0 0 12px}
+h1{font-size:clamp(28px,4.6vw,44px);line-height:1.08;margin:0 0 14px;letter-spacing:-.02em}
+h1 .accent{color:var(--drone)}
+.lede{font-size:17px;color:var(--muted);max-width:700px;margin:0}
+.lede b{color:var(--ink);font-weight:600}
+.panel{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:22px;margin:22px 0}
+.drop{border:2px dashed #2a3b52;border-radius:12px;padding:30px 22px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+.drop:hover,.drop.over{border-color:var(--drone);background:rgba(76,194,255,.05)}
+.drop b{font-size:16px}
+.drop p{color:var(--muted);font-size:13.5px;margin:8px 0 0}
+.drop input{display:none}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:14px}
+.btn{display:inline-block;background:var(--drone);color:#04121d;font:700 14.5px var(--sans);padding:11px 18px;border:0;border-radius:9px;text-decoration:none;cursor:pointer}
+.btn.g{background:transparent;color:var(--ink);border:1px solid #35537a}
+.btn:disabled{opacity:.5;cursor:default}
+.note{color:var(--dim);font-size:12.5px;margin-top:12px;text-align:center}
+.note a,.foot a{color:var(--drone);text-decoration:none}
+.err{border-left:4px solid var(--bad);background:rgba(255,92,122,.07);padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0;font-size:14px}
+.msg{border-left:4px solid var(--warn);background:rgba(255,210,76,.07);padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0;font-size:14px}
+.working{color:var(--muted);font-family:var(--mono);font-size:13px;padding:10px 0}
+.verdict{border:2px solid var(--ok);border-radius:12px;padding:18px 20px;margin:18px 0;font-size:17px}
+.verdict.flooded{border-color:var(--bad);background:rgba(255,92,122,.06)}
+.verdict.elevated{border-color:var(--warn);background:rgba(255,210,76,.06)}
+.verdict.clear{border-color:var(--ok);background:rgba(57,217,138,.06)}
+.verdict b.big{font-size:22px;letter-spacing:.02em}
+.verdict .conf{color:var(--muted);font-size:13.5px}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.kp div{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:12px 14px}
+.kp b{display:block;font-size:24px;line-height:1.1}
+.kp span{font-size:12px;color:var(--muted)}
+.kp .bad{color:var(--bad)}.kp .warn{color:var(--warn)}.kp .ok{color:var(--ok)}
+.genuine{border-left:4px solid var(--ok);background:rgba(57,217,138,.06);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;font-size:14.5px}
+.mono{font-family:var(--mono)}
+.pay{background:linear-gradient(180deg,#131c2a,#0f1622);border:1px solid #2a3b52;border-radius:14px;padding:24px;margin:22px 0}
+.pay h2{margin:0 0 8px;font-size:21px}
+.pay .price{font-size:30px;font-weight:800;color:var(--drone)}
+.pay ul{margin:12px 0 16px;padding-left:20px;color:var(--muted);font-size:14px}
+.pay ul li{margin:4px 0}
+.pay ul b{color:var(--ink)}
+h2.sec{font-size:15px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;margin:40px 0 14px;color:var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.col{border:1px solid var(--line);border-radius:11px;background:var(--panel2);padding:16px 18px}
+.col b{display:block;margin-bottom:6px}
+.col p{margin:0;color:var(--muted);font-size:13.5px}
+footer.foot{margin:56px 0 44px;padding-top:22px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+footer.foot p{max-width:840px;margin:0 0 10px}
+footer.foot .crates{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+footer.foot a.crate{font-family:var(--mono);font-size:12px;color:var(--drone);border:1px solid var(--line);border-radius:7px;padding:4px 9px;background:var(--panel2)}
+</style></head>
+<body>
+<header class="top"><div class="in">
+<a class="logo" href="https://tensorust.com/">TENSOR<b>/</b>RUST</a>
+<nav class="tabs"><a href="https://mattbusel.github.io/drone-demos/">Live demos</a><a href="https://mattbusel.github.io/aerograph/">Aerograph map</a><a href="https://github.com/Mattbusel/remoteid">remoteid on GitHub</a><a href="https://crates.io/crates/remoteid-sentinel">crates.io</a></nav>
+<span class="sp"></span><nav class="tabs"><a href="https://shop.tensorust.com">Shop</a></nav>
+</div></header>
+<div class="wrap">
+
+<header class="hero">
+<p class="kick">Remote ID incident analyzer</p>
+<h1>Was that drone <span class="accent">real?</span></h1>
+<p class="lede">Upload the Remote ID capture your receiver recorded — <b>pcap, pcapng or RIDF</b> — and the open-source Tensorust stack grades the whole field in seconds: <b>flooded with fakes or clean, how many tracks look wrong, and whether one genuine drone is hiding in the noise.</b> The verdict is free. The full incident report is $9.99.</p>
+</header>
+
+<div id="flash"></div>
+
+<section class="panel">
+<label class="drop" id="drop">
+  <b>Drop your capture here, or click to choose</b>
+  <p>pcap / pcapng / RIDF &middot; up to 2 MB &middot; analyzed on our server by the published crates, never shared</p>
+  <input type="file" id="file" accept=".pcap,.pcapng,.ridf,.cap,.bin,application/octet-stream">
+</label>
+<div class="row">
+  <button class="btn g" id="sample" type="button">No capture? Analyze our sample flood</button>
+</div>
+<p class="note">Free verdict. No account. Wireshark, tcpdump and most open Remote ID receivers save one of these formats &middot; <a href="https://github.com/Mattbusel/remoteid-esp32">build a $6 receiver</a> &middot; <a href="https://github.com/Mattbusel/remoteid-demo">command-line version</a></p>
+<div id="out"></div>
+</section>
+
+<div id="paywrap"></div>
+
+<h2 class="sec">What the analysis is</h2>
+<div class="cols">
+<div class="col"><b>Decode, per unit</b><p>Every broadcast is decoded and graded by <span class="mono">remoteid</span> — the published Rust decoder for ASTM F3411 and DJI DroneID — exactly as a receiver would.</p></div>
+<div class="col"><b>Grade, whole field</b><p><span class="mono">remoteid-sentinel</span> reads all tracks at once and raises the cross-track signatures one radio hiding behind hundreds of fake identities cannot avoid: fan-out, templated serials, frozen counters, shared pilot positions.</p></div>
+<div class="col"><b>Honest by design</b><p>An anomaly is evidence, not identity. The report says <i>detected</i>, not <i>confirmed</i>: it never claims to name a pilot, and it says so on the page.</p></div>
+<div class="col"><b>Receive-only</b><p>The stack opens no radio and has no transmit path, anywhere. It reads broadcasts a sensor already heard and returns a verdict, never a frame.</p></div>
+</div>
+
+<footer class="foot">
+<p><b style="color:var(--ink)">Honest by design.</b> The verdict and the report are produced by the open-source crates themselves, run server-side over the exact bytes you upload. Nothing is simulated on this page except the optional sample capture, which is labelled as generated.</p>
+<p>The analyzer and the report grade <i>broadcasts</i>. A spoofed or suspicious grade is evidence about a transmission, not the identification of a person.</p>
+<div class="crates">
+<a class="crate" href="https://crates.io/crates/remoteid">remoteid</a>
+<a class="crate" href="https://crates.io/crates/remoteid-sentinel">remoteid-sentinel</a>
+<a class="crate" href="https://crates.io/crates/remoteid-scenario">remoteid-scenario</a>
+<a class="crate" href="https://github.com/Mattbusel/remoteid-esp32">remoteid-esp32 · $6 receiver</a>
+<a class="crate" href="https://mattbusel.github.io/drone-demos/">live demos</a>
+</div>
+<p style="margin-top:14px">Tensorust &middot; <a href="mailto:support@tensorust.com">support@tensorust.com</a> &middot; <a href="https://shop.tensorust.com/terms">Terms</a> &middot; <a href="https://shop.tensorust.com/privacy">Privacy</a></p>
+</footer>
+</div>
+
+<script>
+(function(){
+  var PREVIEW = "https://shop.tensorust.com/api/reports/preview";
+  var CHECKOUT = "https://shop.tensorust.com/api/reports/checkout";
+  var MAX = 2 * 1024 * 1024; // preview accepts 3 MB of base64; keep the raw file under 2 MB
+  var drop = document.getElementById("drop"), input = document.getElementById("file"),
+      out = document.getElementById("out"), paywrap = document.getElementById("paywrap"),
+      flash = document.getElementById("flash");
+  var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+
+  var m = new URLSearchParams(location.search).get("m");
+  var M = { cancelled: "Checkout was cancelled — nothing was charged. Your free verdict is still available below whenever you re-run it.",
+            stripe: "Checkout could not start just now. Wait a minute and try again, or email support@tensorust.com.",
+            expired: "That analyzed upload has expired from the queue. Re-run the free analysis and buy from the new result.",
+            order: "That order link is not valid for this report.", unknown: "That report link is not valid." };
+  if (m && M[m]) flash.innerHTML = '<div class="wrap"><div class="msg">' + esc(M[m]) + '</div></div>';
+
+  function b64(buf){
+    var bytes = new Uint8Array(buf), chunk = 0x8000, s = "";
+    for (var i = 0; i < bytes.length; i += chunk) s += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+    return btoa(s);
+  }
+
+  function analyze(file){
+    if (!file) return;
+    if (file.size > MAX) { out.innerHTML = '<div class="err">That file is over 2 MB. Trim the capture to the incident window (in Wireshark: File &rarr; Export Specified Packets) and try again.</div>'; return; }
+    paywrap.innerHTML = "";
+    out.innerHTML = '<div class="working">Decoding ' + esc(file.name) + ' with the real crates…</div>';
+    var r = new FileReader();
+    r.onerror = function(){ out.innerHTML = '<div class="err">Could not read that file. Try again.</div>'; };
+    r.onload = function(){
+      fetch(PREVIEW, { method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ kind: "drone", text: b64(r.result), filename: file.name }) })
+      .then(function(res){ return res.json().then(function(j){ return { status: res.status, j: j }; }); })
+      .then(function(x){
+        if (!x.j || !x.j.ok) { out.innerHTML = '<div class="err">' + esc((x.j && x.j.error) || "Something went wrong on our side. Try again in a minute.") + '</div>'; return; }
+        render(x.j.id, x.j.teaser, file.name);
+      })
+      .catch(function(){ out.innerHTML = '<div class="err">The analysis service did not answer. Check your connection and try again.</div>'; });
+    };
+    r.readAsArrayBuffer(file);
+  }
+
+  function render(id, t, fname){
+    var cls = t.level === "flooded" ? "flooded" : t.level === "elevated" ? "elevated" : "clear";
+    var line = t.level === "flooded"
+      ? "Strong evidence this airspace was flooded with fake Remote ID broadcasts."
+      : t.level === "elevated"
+      ? "Some flood or spoof indicators present. Watch it; do not treat every track as fake."
+      : "No sign of a coordinated flood or spoof in this capture.";
+    var g = t.genuine
+      ? '<div class="genuine">One track survived as the <b>most likely real drone</b>: <span class="mono">' + esc(t.genuine.uas_id || t.genuine.label) + '</span> (real-score ' + t.genuine.real_score.toFixed(2) + '). Which radio it came from, and why, is in the full report.</div>'
+      : "";
+    out.innerHTML =
+      '<div class="verdict ' + cls + '"><b class="big">VERDICT: ' + esc(t.level.toUpperCase()) + '</b> <span class="conf">confidence ' + Math.round(t.confidence * 100) + '%</span><br>' + line + '</div>' +
+      '<div class="kp">' +
+      '<div><b>' + t.frames.toLocaleString("en-US") + '</b><span>Remote ID frames over ' + t.window_s + ' s</span></div>' +
+      '<div><b>' + t.transmitters + '</b><span>on-air source' + (t.transmitters === 1 ? "" : "s") + '</span></div>' +
+      '<div><b>' + t.identities + '</b><span>distinct UAS identities</span></div>' +
+      '<div><b class="' + (t.spoofed ? "bad" : "ok") + '">' + t.spoofed + '</b><span>tracks graded spoofed</span></div>' +
+      '<div><b class="' + (t.suspicious ? "warn" : "ok") + '">' + t.suspicious + '</b><span>graded suspicious</span></div>' +
+      '<div><b class="' + (t.anomaly_tracks ? "bad" : "ok") + '">' + t.anomaly_tracks + '</b><span>tracks with anomaly signals</span></div></div>' + g;
+
+    paywrap.innerHTML =
+      '<section class="pay"><h2>The full Drone Incident Report — <span class="price">$9.99</span></h2>' +
+      '<ul><li><b>Every track</b>: verdict, DRIP authentication state, real-score, frames, first/last seen, last position, signal strength.</li>' +
+      '<li><b>Every cross-track signature</b> with a plain-English explanation: fan-out, templated serials, frozen counters, shared pilot position and more.</li>' +
+      '<li><b>The most likely real drone</b>, with the ordered reasons it was chosen and its reported path.</li>' +
+      '<li><b>Operator positions and IDs</b> the drones broadcast, per track.</li>' +
+      '<li><b>Downloadable evidence</b>: the report as HTML and the whole field as CSV, plus a permanent link and an emailed copy.</li></ul>' +
+      '<form method="post" action="' + CHECKOUT + '">' +
+      '<input type="hidden" name="product" value="drone-report"><input type="hidden" name="input_id" value="' + esc(id) + '">' +
+      '<input type="hidden" name="utm_source" value="tensorust.com"><input type="hidden" name="utm_medium" value="tool"><input type="hidden" name="utm_campaign" value="drone-incident">' +
+      '<button class="btn" type="submit">Get the full report — $9.99</button> ' +
+      '<span class="note" style="display:inline;margin:0;text-align:left">Secure checkout by Stripe. The report is generated from this exact capture and opens right after payment.</span></form>' +
+      '<p class="note" style="text-align:left;margin-top:14px">Detected anomalies are evidence about broadcasts, not confirmed spoofing by an identified person — the report itself is explicit about the difference.</p></section>';
+    paywrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  drop.addEventListener("click", function(){ input.click(); });
+  drop.addEventListener("dragover", function(e){ e.preventDefault(); drop.classList.add("over"); });
+  drop.addEventListener("dragleave", function(){ drop.classList.remove("over"); });
+  drop.addEventListener("drop", function(e){ e.preventDefault(); drop.classList.remove("over"); analyze(e.dataTransfer.files[0]); });
+  input.addEventListener("change", function(){ analyze(input.files[0]); });
+  document.getElementById("sample").addEventListener("click", function(){
+    fetch("sample-flood.pcap").then(function(r){ return r.blob(); }).then(function(b){
+      analyze(new File([b], "sample-flood.pcap (generated flood: 40 fake identities, 1 real drone)"));
+    });
+  });
+})();
+</script>
+</body></html>
